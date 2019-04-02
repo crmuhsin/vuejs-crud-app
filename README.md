@@ -1,4 +1,4 @@
-# hello-world
+# Vue.JS CRUD
 
 ## Project setup
 ```
