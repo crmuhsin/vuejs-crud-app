@@ -1,20 +1,19 @@
 <template>
   <div id="app">
-      <h1 class="text-center">Employee Inventory</h1>
-      
-      <UI></UI>
+    <h1 class="text-center">Employee Inventory</h1>
+    <UI></UI>
   </div>
 </template>
 
 <script>
-import UI from './components/UI.vue'
+import UI from "./components/UI.vue";
 
 export default {
-  name: 'app',
+  name: "app",
   components: {
     UI
   }
-}
+};
 </script>
 
 <style>
