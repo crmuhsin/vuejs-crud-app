@@ -6,35 +6,39 @@
                 <div class="swiper-container">
                     <h1>Timeline of DC State</h1>
                     <p class="swiper-control">
-                        <button type="button" class="btn btn-info button-width swiper-button-prev">Prev</button>
-                        <button type="button" class="btn btn-info button-width swiper-button-next">Next</button>
+                        <button type="button" class="btn btn-info button-width swiper-button-prev mr-3">Prev</button>
+                        <button type="button" class="btn btn-info button-width swiper-button-next ">Next</button>
                     </p>
                     <div class="swiper-wrapper timeline-wrapper">
                         <div class="swiper-slide timeline" v-for="item in timeLine" :key="item.id">
                             <div class="event" :data-after-content="item.sort">
                                 <h6>{{item.sortOrderOfDCState}}</h6>
-                                <p>Start Date : </p>
-                                <p>{{item.startDate}}</p>
-                                <p>End Date : </p>
-                                <p>{{item.endDate}}</p>
+                                <span>
+                                    <p>Start Date : </p>
+                                    <p>{{item.startDate}}</p>
+                                </span>
+                                <span>
+                                    <p>End Date : </p>
+                                    <p>{{item.endDate}}</p>
+                                </span>
                             </div>
                         </div>
                     </div>
-                </div> 
+                </div>
             </div>
-   		</div>
+        </div>
 	</div>
 </div>
 </template>
 
 <script>
 import Swiper from 'swiper';
+import moment from 'moment';
 
 export default {
   name: "Time",
   data() {
 	return {
-        myclass: "",
 		timeLine : [
             {sort: 1, sortOrderOfDCState:'DC Opening', startDate:'Sep 6, 2019 12:00:00 AM', endDate:'Sep 6, 2019 12:00:00 AM'},
             {sort: 2, sortOrderOfDCState:'Send to foreign bank', startDate:'Sep 6, 2019 12:00:00 AM', endDate:'Sep 6, 2019 12:00:00 AM'},
@@ -44,21 +48,41 @@ export default {
             {sort: 6, sortOrderOfDCState:'XO export', startDate:'Sep 6, 2019 12:00:00 AM', endDate:'Sep 6, 2019 12:00:00 AM'},
             {sort: 7, sortOrderOfDCState:'Freight Forwarder product pick from supplier', startDate:'Sep 6, 2019 12:00:00 AM', endDate:'Sep 6, 2019 12:00:00 AM'},
             {sort: 8, sortOrderOfDCState:'Pre shipment inspection', startDate:'Sep 6, 2019 12:00:00 AM', endDate:'Sep 6, 2019 12:00:00 AM'},
+            {sort: 9, sortOrderOfDCState:'Pre shipment inspection', startDate:'Sep 6, 2019 12:00:00 AM', endDate:'Sep 6, 2019 12:00:00 AM'},
+            {sort: 10, sortOrderOfDCState:'Pre shipment inspection', startDate:'Sep 6, 2019 12:00:00 AM', endDate:'Sep 6, 2019 12:00:00 AM'},
+            {sort: 11, sortOrderOfDCState:'DC Opening', startDate:'Sep 6, 2019 12:00:00 AM', endDate:'Sep 6, 2019 12:00:00 AM'},
+            {sort: 12, sortOrderOfDCState:'Send to foreign bank', startDate:'Sep 6, 2019 12:00:00 AM', endDate:'Sep 6, 2019 12:00:00 AM'},
+            {sort: 13, sortOrderOfDCState:'Benificiary Confirmation', startDate:'Sep 6, 2019 12:00:00 AM', endDate:'Sep 6, 2019 12:00:00 AM'},
+            {sort: 14, sortOrderOfDCState:'Product Readiness', startDate:'Sep 6, 2019 12:00:00 AM', endDate:'Sep 6, 2019 12:00:00 AM'},
+            {sort: 15, sortOrderOfDCState:'Freight Forwarder booking', startDate:'Sep 6, 2019 12:00:00 AM', endDate:'Sep 6, 2019 12:00:00 AM'},
+            {sort: 16, sortOrderOfDCState:'XO export', startDate:'Sep 6, 2019 12:00:00 AM', endDate:'Sep 6, 2019 12:00:00 AM'},
+            {sort: 17, sortOrderOfDCState:'Freight Forwarder product pick from supplier', startDate:'Sep 6, 2019 12:00:00 AM', endDate:'Sep 6, 2019 12:00:00 AM'},
+            {sort: 18, sortOrderOfDCState:'Pre shipment inspection', startDate:'Sep 6, 2019 12:00:00 AM', endDate:'Sep 6, 2019 12:00:00 AM'},
             ],
         }
     },
-    computed(){
-        // this.myclass = ".event::after {  content: \"" + this.steps[0].id + "\"; }";
+    methods:{
+        formatedDate(){
+            this.timeLine.forEach((item)=>{
+                if (item.startDate) {
+                    item.startDate = moment(new Date(item.startDate)).format("MMM DD, YYYY")
+                }
+                if (item.endDate) {
+                    item.endDate = moment(new Date(item.endDate)).format("MMM DD, YYYY")
+                }
+            });
+        }
     },
 	mounted() {
+        this.formatedDate();
 		new Swiper('.swiper-container', {
 			navigation: {
 				prevEl: '.swiper-button-prev',
 				nextEl: '.swiper-button-next',
 			},
-			slidesPerView: 8,
+			slidesPerView: 5,
 			grabCursor: true,
-		});
+        });
 	},
 };
 </script>
@@ -72,65 +96,52 @@ export default {
 	background: white;
 	font-size: 13px;
 }
-.swiper-container {
+ .swiper-container {
     overflow: hidden;
 }
 .timeline-wrapper {
     display: flex;
 }
-.timeline-wrapper::after {
-    position: absolute;
-    height: 10px;
-    transition: 0.75s ease-out;
-    background: #67cafa;
-    width: 0px;
-    z-index: 0 !important;
-}
-.timeline {
-    display: flex;
+.timeline{
     transition: all 0.3s;
-    padding-bottom: 30px;
+    padding-bottom: 55px;
     border-bottom: 10px solid #0684c2;
     margin: 0 0 50px 0;
 }
-.timeline .event h6{
-    max-height: 90px;
-    min-height: 90px;
-    padding: 5px;
-    font-weight: bold;
+.event h1{
+    max-width: 70px;
+    max-height: 70px;
+    min-width: 70px;
+    min-height: 70px;
 }
-
-.timeline .event p{
-    margin: auto;
-    padding: 0px;
-}
-.timeline .event {
+.event {
+    max-width: 200px;
+    max-height: 200px;
+    min-width: 200px;
+    min-height: 200px;
     display: block;
-    float: left;
     background: #caecfd;
     padding: 1em;
     border-radius: 5px;
-    position: relative;
     margin: 0 1em 0 1em;
     transition: all 0.3s;
     box-shadow: 0 0 5px #ccc;
-    color: #03415f;
+    color: #0d151a;
     text-align: center;
-    flex-basis: 100px;
 }
 
-.timeline .event:hover {
+.event:hover {
     background: #98dbfc;
     box-shadow: 0px 0px 10px #ccc;
     transform-origin: 100px 0px;
     transform: rotate(-10deg);
     z-index: 2;
 }
-.timeline .event:hover::after {
+.event:hover::after {
     border-color: #046291;
     z-index: 2;
 }
-.timeline .event::after {
+.event::after {
     margin: 0 auto;
     position: relative;
     bottom: -65px;
@@ -145,25 +156,5 @@ export default {
     border: 5px solid #0684c2;
     transition: all 0.25s;
     z-index: 2;
-}
-.timeline .event.active {
-    background: #ffffe0;
-    transform: scale(1.1) translateY(-5px);
-    box-shadow: 0 0 10px #ccc;
-    z-index: 2;
-}
-.timeline .event.active::after {
-    border-color: #67cafa;
-    transform: scale(1.1);
-}
-.timeline .event.previous {
-    background: rgba(0, 0, 0, 0.05);
-    color: rgba(0, 0, 0, 0.1);
-}
-.timeline .event.previous p {
-    color: rgba(0, 0, 0, 0.1);
-}
-.timeline .event.previous:hover {
-    opacity: 1;
-}
+} 
 </style>

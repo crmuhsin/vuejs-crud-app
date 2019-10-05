@@ -113,28 +113,38 @@ export default {
     }
   },
   mounted() {
-    let assetOid = "20190707-182217-fqiKPhMgoZfsDiG";
+    // let assetOid = "20190707-182217-fqiKPhMgoZfsDiG";
     const chart = Highcharts.chart('c', this.options);
-    let point = chart.series[0].points[0];
-    
+    // let point = chart.series[0].points[0];
+
     if (!chart.renderer.forExport) {
       timer = setInterval(function() {
-        axios.get("http://192.168.0.155:5555/api/v1/monitor/" + assetOid)
-        .then(result => {
-          let newVal = ((+result.data[0].ram_used)*100/(+result.data[0].ram_total)).toFixed(2);
-          document.getElementById('boss').innerHTML = newVal
-          point.update(newVal);
-        }).catch(error => {
-          document.getElementById('boss').innerHTML = error;
-        });
-      }, 10000)
+        // axios.get("http://192.168.0.155:5555/api/v1/monitor/" + assetOid)
+        // .then(result => {
+        //   let newVal = ((+result.data[0].ram_used)*100/(+result.data[0].ram_total)).toFixed(2);
+        //   document.getElementById('boss').innerHTML = newVal
+        //   point.update(newVal);
+        // }).catch(error => {
+        //   document.getElementById('boss').innerHTML = error;
+        // });
+        var point = chart.series[0].points[0],
+                newVal,
+                inc = Math.round((Math.random() - 0.5) * 20);
+
+            newVal = point.y + inc;
+            if (newVal < 0 || newVal > 200) {
+                newVal = point.y - inc;
+            }
+
+            point.update(newVal);
+      }, 1000)
     }
   },
   destroyed() {
     if (timer) {
       clearInterval(timer)
     }
-  },  
+  },
 }
 
 </script>
